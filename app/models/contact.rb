@@ -7,7 +7,8 @@ class Contact < ActiveRecord::Base
 
   validates :name, :email, presence: true
   validates :email, uniqueness: { scope: :user_id, message: 'already exists' }
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
 
   self.per_page = 10
 
