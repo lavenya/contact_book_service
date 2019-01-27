@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
+  after(:all) do
+    Contact.destroy_all
+    User.destroy_all
+  end
   describe 'Contact associations' do
     it 'validates associations' do
       t = Contact.reflect_on_association(:user)
@@ -33,6 +37,12 @@ RSpec.describe Contact, type: :model do
       second_contact = Contact.create(name: Faker::Name.name, email: email)
       expect(second_contact.errors).to be_present
       expect(second_contact.errors.messages[:email][0]).to eq 'already exists'
-    end 
+    end
+  end
+
+  describe 'search query' do
+    it 'check search payload' do
+      expect(Contact).to respond_to(:search_query).with(2).argument
+    end
   end
 end

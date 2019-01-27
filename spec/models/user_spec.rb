@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  after(:all) do
+    User.destroy_all
+  end
   describe 'Associations' do
     it 'validates associations' do
       t = User.reflect_on_association(:contacts)

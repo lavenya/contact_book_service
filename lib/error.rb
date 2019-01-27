@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Error
+  attr_accessor :object_error, :error_messages
   def initialize(object_error)
     @object_error = object_error
     @error_messages = []

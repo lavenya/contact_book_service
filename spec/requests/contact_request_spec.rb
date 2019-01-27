@@ -4,6 +4,7 @@ RSpec.describe 'Contact Requests', type: :request do
 
   after(:all) do
     Contact.destroy_all
+    User.destroy_all
   end
 
   describe 'Contact creation' do
@@ -183,7 +184,7 @@ RSpec.describe 'Contact Requests', type: :request do
       5.times do |i|
         create(:contact_with_email, user_id: @user.id, email: "#{email}_#{i}@gmail.com")
       end
-      Contact.stub(:search) { @user.contacts.where("email like 'email_%'") }
+      Contact.stub(:search) { @user.contacts.where("email like '#{email}_%'") }
       get '/contacts/search', contact_search_params(@user.contacts.first.email, 1), @headers
       expect(response).to have_http_status(200)
       expect(hash_response[:data].length).to be 5
@@ -195,7 +196,7 @@ RSpec.describe 'Contact Requests', type: :request do
         create(:contact_with_name, user_id: @user.id, name: "sample_contact_#{i}")
       end
       Contact.stub(:search) { @user.contacts.where("name like 'sample_contact_%'") }
-      get '/contacts/search', contact_search_params(@user.contacts.first.name, 2), @headers
+      get '/contacts/search', contact_search_params('sample_contact_', 2), @headers
       expect(response).to have_http_status(200)
       expect(hash_response[:data].length).to be 5
     end
