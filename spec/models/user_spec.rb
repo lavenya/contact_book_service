@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
       expect(user.errors.messages[:name][0]).to eq "can't be blank"
     end
 
-    it 'invalid email' do
+    it 'missing email' do
       user = User.create(name: Faker::Name.name, password: Faker::Lorem.characters(3))
       expect(user.errors).to be_present
       expect(user.errors.messages[:email][0]).to eq "can't be blank"
@@ -45,6 +45,12 @@ RSpec.describe User, type: :model do
       second_user = User.create(name: Faker::Name.name, email: email, password: Faker::Lorem.characters(3))
       expect(second_user.errors).to be_present
       expect(second_user.errors.messages[:email][0]).to eq "has already been taken"
+    end
+
+    it 'invalid email' do
+      user = User.create(name: Faker::Name.name, email: Faker::Name.name, password: Faker::Lorem.characters(3))
+      expect(user.errors).to be_present
+      expect(user.errors.messages[:email][0]).to eq 'is invalid'
     end
   end
 end

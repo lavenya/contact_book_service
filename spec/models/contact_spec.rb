@@ -40,6 +40,12 @@ RSpec.describe Contact, type: :model do
       expect(second_contact.errors).to be_present
       expect(second_contact.errors.messages[:email][0]).to eq 'already exists'
     end
+
+    it 'invalid email' do
+      contact = Contact.create(name: Faker::Name.name, email: Faker::Name.name)
+      expect(contact.errors).to be_present
+      expect(contact.errors.messages[:email][0]).to eq 'is invalid'
+    end
   end
 
   describe 'search query' do

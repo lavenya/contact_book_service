@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :user do
     name { Faker::Name.name }
-    email { "#{Faker::Internet.email}_#{(Time.now.to_f * 100).ceil}" }
+    email { Faker::Internet.email }
     password { 'test' }
   end
 end

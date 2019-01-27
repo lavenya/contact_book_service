@@ -5,15 +5,15 @@ require 'rails_helper'
 RSpec.describe 'Error lib' do
   describe 'Error Object' do
     it 'initialize error' do
-      contact = Contact.create(name: Faker::Name.name)
-      error = ::ContactBookErrors::Error(contact.errors)
+      contact = Contact.create(name: Faker::Name.name, email: 'fd')
+      error = ::ContactBookErrors::Error.new(contact.errors)
       expect(error.object_error).to eq contact.errors
       expect(error.error_messages).to eq []
     end
 
     it 'collect all error messages' do
       contact = Contact.create(name: Faker::Name.name)
-      error = ::ContactBookErrors::Error(contact.errors)
+      error = ::ContactBookErrors::Error.new(contact.errors)
       expect(error.messages).to be_present
     end
   end
