@@ -22,7 +22,7 @@ module ContactBookService
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.api_only = true
-    config.autoload_paths += Dir["#{config.root}/lib/"]
+    config.autoload_paths << Rails.root.join("lib")
     config.assets.initialize_on_precompile = false
   end
 end
