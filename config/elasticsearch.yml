@@ -1,2 +1,8 @@
-host: 'http://localhost:9200/'
-timeout: 5
+development: &default
+  host: 'http://localhost:9200/'
+  timeout: 5
+production:
+  <<: *default
+  host: <%= ENV['ES_URL'] %>
+  username: <%= ENV['ES_USERNAME'] %>
+  password: <%= ENV['ES_PASSWORD'] %>
