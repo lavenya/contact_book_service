@@ -53,7 +53,7 @@ class ContactsController < ApplicationController
   end
 
   def error_message(object)
-    Error.new(object.errors).messages
+    ::ContactBookErrors::Error.new(object.errors).messages
   end
 
   def contact_params

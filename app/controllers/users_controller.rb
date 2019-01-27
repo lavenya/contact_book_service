@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def error_message(object)
-    Error.new(object.errors).messages
+    ::ContactBookErrors::Error.new(object.errors).messages
   end
 
   def render_user_json(user)
