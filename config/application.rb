@@ -24,5 +24,6 @@ module ContactBookService
     config.active_record.raise_in_transactional_callbacks = true
     config.api_only = true
     config.autoload_paths += Dir["#{config.root}/lib/"]
+    config.assets.initialize_on_precompile = false
   end
 end
