@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BasicAuthHelper
   def authenticate
     authenticate_with_http_basic do |username, password|

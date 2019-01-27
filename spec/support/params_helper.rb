@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ParamsHelper
   def user_creation_params
     password = Faker::Lorem.characters(10)

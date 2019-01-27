@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Authentication Requests', type: :request do
@@ -24,7 +26,7 @@ RSpec.describe 'Authentication Requests', type: :request do
 
   it 'deny access for incorrect password' do
     user = create(:user)
-    @headers = login_headers(user.email, Faker::Lorem.characters(4))
+    @headers = login_headers(user.email, AuthHelper::INVALID_PASSWORD)
     params = contact_creation_params
     post '/contacts', params, @headers
     expect(response).to have_http_status(401)
