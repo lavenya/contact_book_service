@@ -15,8 +15,8 @@ module Searchable
 
     def self.es_search_with_pagination(query, user_id, page)
       results = search(query, user_id)
-      contact_ids = results.map(&:id)
-      self.where(id: contact_ids).paginate(page: page)
+      ids = results.map(&:id)
+      self.where(id: ids).paginate(page: page)
     end
 
     def as_indexed_json(options = {})

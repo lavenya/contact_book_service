@@ -36,7 +36,7 @@ gem 'elasticsearch-rails', '6.0.0'
 gem 'will_paginate', '3.1.0'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -47,6 +47,10 @@ gem 'will_paginate', '3.1.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'factory_girl_rails', '4.5.0'
+  gem 'faker','1.6.3'
+  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 group :development do

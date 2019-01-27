@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-  before_action :select_user, only: [:index, :show, :create, :update, :destroy, :search] # remove after adding current_user
   before_action :render_empty_result, only: :search, if: :small_query?
   before_action :select_contact, only: [:update, :destroy, :show]
 
   def index
-    render json: ContactSerializer.new(@user.contacts).serializable_hash
+    render json: ContactSerializer.new(@current_user.contacts).serializable_hash
   end
 
   def show
-    render json: @contact
+    render json: ContactSerializer.new(@contact).serializable_hash
   end
 
   def create
-    contact = @user.contacts.create(contact_params)
+    contact = @current_user.contacts.create(contact_params)
     render_contact_json(contact)
   end
 
@@ -29,7 +28,7 @@ class ContactsController < ApplicationController
   end
 
   def search
-    contacts = Contact.es_search_with_pagination(params[:query], @user.id, params[:page])
+    contacts = Contact.es_search_with_pagination(params[:query], @current_user.id, params[:page])
     render json: ContactSerializer.new(contacts).serializable_hash
   end
 
@@ -50,7 +49,7 @@ class ContactsController < ApplicationController
   end
 
   def render_error(object)
-    render json: { status: 300, errors: error_message(object) }
+    render status: 300, json: { errors: error_message(object) }
   end
 
   def error_message(object)
@@ -61,12 +60,8 @@ class ContactsController < ApplicationController
     params.permit(:name, :email)
   end
 
-  def select_user
-    @user = User.find(params[:user_id]) # change to current user
-  end
-
   def select_contact
-    @contact = @user.contacts.where(id: params[:id]).first
+    @contact = @current_user.contacts.where(id: params[:id]).first
     render status: :not_found, json: nil if @contact.blank?
   end
 end
