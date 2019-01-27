@@ -1,3 +1,1 @@
-host: <%= ENV['ELASTICSEARCH_URL'] %>
-username: <%= ENV['ES_USERNAME'] %>
-password: <%= ENV['ES_PASSWORD'] %>
+host: 'localhost:9200'
